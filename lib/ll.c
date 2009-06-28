@@ -56,6 +56,7 @@ int ll_change(struct ll *p, int n, void *data)
 int ll_delete(struct ll *p, int n)
 {
 	struct ll *list = p;
+	struct ll *newnext = p;
 	int i;
 
 	/* Find the element preceding the element to delete.
@@ -67,8 +68,12 @@ int ll_delete(struct ll *p, int n)
 			return 1;
 	}
 
+
+	/* We have to store this before freeing it, otherwise Bad Things™ could
+	 * happen. */
+	newnext = list->next->next;
 	free(list->next);
-	list->next = list->next->next;
+	list->next = newnext;
 
 	return 0;
 }
