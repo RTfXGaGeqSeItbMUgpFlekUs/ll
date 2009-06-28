@@ -6,7 +6,7 @@ TEST_SRCS := test/test.c
 TEST_OBJS := $(TEST_SRCS:.c=.o)
 TEST_HDRS := lib/ll.h
 
-CFLAGS := -Ilib/ -g
+CFLAGS := -Ilib/ -g -ansi -pedantic
 
 all: Makefile ll.a runtest
 
