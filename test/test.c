@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <sys/timeb.h>
+
 int dumpllitem(struct ll *list, int n)
 {
 	int i;
@@ -34,7 +36,9 @@ int main(int argc, char **argv)
 	struct ll *list;
 	char *data = "some data";
 	char *diffdata = "some other data";
-	int ret;
+	int ret, i;
+	struct timeb tp;
+	time_t begin, end;
 
 	printf("Creating list.\n");
 	list = ll_create();
@@ -60,7 +64,17 @@ int main(int argc, char **argv)
 	dumpllitems(list);
 
 	printf("Note that this test did not verify the data.\n"
-	       "Please do that yourself.\n");
+	       "Please do that yourself.\n\n");
+
+	printf("Testing speed.\n");
+	ftime(&tp);
+	begin = tp.time;
+	for (i = 0; i < 1000000000; i++) {
+		ll_change(list, ret-1, diffdata);
+	}
+	ftime(&tp);
+	end = tp.time;
+	printf("Took %d seconds to change 1,000,000,000 items\n", end-begin);
 
 	return 0;
 }
