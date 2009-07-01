@@ -53,6 +53,20 @@ int ll_change(struct ll *p, int n, void *data)
 	return 0;
 }
 
+void *ll_get(struct ll *list, int n)
+{
+	int i;
+
+	/* Find the element to change. */
+	for (i = -1; i < n; i++) {
+		list = list->next;
+		if (list == NULL)
+			return NULL;
+	}
+
+	return list->data;
+}
+
 int ll_delete(struct ll *p, int n)
 {
 	struct ll *list = p;
