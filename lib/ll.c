@@ -67,6 +67,21 @@ void *ll_get(struct ll *list, int n)
 	return list->data;
 }
 
+int ll_lookup(struct ll *list, void *data)
+{
+	int i;
+
+	/* Find the item. */
+	for (i = -1; list != NULL; i++) {
+		list = list->next;
+		if (list == NULL)
+			return 0;
+		if (data == list->data)
+			return i+1;
+	}
+	return 0;
+}
+
 int ll_delete(struct ll *p, int n)
 {
 	struct ll *list = p;
